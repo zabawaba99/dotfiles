@@ -14,3 +14,5 @@ runAgainst() {
     cd ..
   done
 }
+
+ulimit -S -n 2048
