@@ -17,3 +17,15 @@ go_cleanup() {
       git checkout HEAD -- Godeps
   fi
 }
+
+godep_update() {
+  git checkout master
+  git pull
+  git checkout -B updating-croods
+  git rebase master
+  godep update "$@"
+  git add Godeps/*
+  git commit -m "updating godeps"
+  git push --set-upstream origin updating-croods
+  hub pull-request -m "update godeps"
+}
