@@ -1,0 +1,105 @@
+#!/bin/bash
+
+if [ -e ~/.initialized ]; then
+  # we have already initialized this machine, do nothing
+  return 0
+fi
+
+touch ~/.initialized
+
+function rp() {
+  prompt=$1
+  shift
+
+  p_yellow "$prompt"
+  eval $@
+  p_green "Finished $prompt"
+}
+
+
+if ! command -v brew >/dev/null; then
+  p_white "Starting homebrew installation"
+
+  # prereq 'xcode-select'
+  rp "installing xcode-select..."  xcode-select --install
+
+  rp "installing hombrew..." ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# mac app installer
+rp "installing caskroom" brew install caskroom/cask/brew-cask
+
+# ruby
+# =========================
+p_white "Starting ruby installation"
+
+rp "installing rbenv" brew install rbenv
+rp "installing ruby 2.2.2" rbenv install 2.2.2
+rbenv rehash
+
+rp "installing some gems"
+gems=(bundler pry awesome_print)
+for gem in "${gems[@]}"; do
+  gem install $gem >/dev/null
+done
+
+mkdir ~/ruby
+
+# go
+# =========================
+p_white "Starting go installation"
+rp "installing go" brew install go --with-cc-all
+mkdir ~/go
+
+
+# docker
+# =========================
+p_white "Starting docker installation"
+
+rp "installing virtualbox" brew cask install dockertoolbox
+rp "setting up docker vm" docker-machine create --virtualbox-disk-size "40000" -d virtualbox dev
+
+
+# java
+# =========================
+p_white "Starting java installation"
+# java version management
+rp "installing jenv" brew install jenv
+
+rp "installing java6" brew cask install caskroom/versions/java6
+rp "installing java7" brew cask install caskroom/versions/java7
+rp "installing java8" brew cask install java
+
+p_yellow "linking java version"
+java_path="/Library/Java/JavaVirtualMachines"
+ls $java_path | xargs -n1 jenv add $java_path/$1/Contents/Home
+
+mkdir ~/java
+
+# android
+# ========================
+p_white "Starting android installation"
+rp "install android tools" brew cask install androidtool
+
+packages=$(android list sdk | grep "Packages available for installation or update" | awk '{print $NF}')
+android update sdk -u -a -t $(seq -s, -t$'\b' 1 $packages)
+
+
+# mac apps
+# =========================
+apps=(google-chrome mysqlworkbench evernote sourcetree sublime-text atom iterm2 intellij-idea)
+for app in "${apps[@]}"; do
+  brew cask install $app >/dev/null
+done
+
+# git setup
+ln -s ~/dotfiles/git/config ~/.gitconfig
+ln -s ~/dotfiles/git/global_ingore ~/.gitignore_global
+
+rp "installing newer git version" brew install git
+
+# zsh
+# =========================
+
+rp "installing zsh" brew install zsh zsh-completions zsh-history-substring-search zsh-syntax-highlighting
+chsh -s $(which zsh)
