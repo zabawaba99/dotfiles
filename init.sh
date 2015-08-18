@@ -33,6 +33,7 @@ p_white "Starting ruby installation"
 
 rp "installing rbenv" brew install rbenv
 rp "installing ruby 2.2.2" rbenv install 2.2.2
+rbenv global 2.2.2
 rbenv rehash
 
 rp "installing some gems"
