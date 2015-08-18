@@ -59,6 +59,11 @@ p_white "Starting docker installation"
 rp "installing virtualbox" brew cask install dockertoolbox
 rp "setting up docker vm" docker-machine create --virtualbox-disk-size "40000" -d virtualbox dev
 
+# npm
+# =========================
+p_white "Starting node installation"
+rp "installing node" brew install npm
+npm install -g grunt
 
 # java
 # =========================
@@ -74,12 +79,15 @@ p_yellow "linking java version"
 java_path="/Library/Java/JavaVirtualMachines"
 ls $java_path | xargs -n1 jenv add $java_path/$1/Contents/Home
 
+rp "installing maven" brew install maven
+rp "installing gradle" brew install gradle
+
 mkdir ~/java
 
 # android
 # ========================
 p_white "Starting android installation"
-rp "install android tools" brew cask install androidtool
+rp "install android tools" brew android-sdk
 
 packages=$(android list sdk | grep "Packages available for installation or update" | awk '{print $NF}')
 android update sdk -u -a -t $(seq -s, -t$'\b' 1 $packages)
@@ -87,7 +95,12 @@ android update sdk -u -a -t $(seq -s, -t$'\b' 1 $packages)
 
 # mac apps
 # =========================
-apps=(google-chrome mysqlworkbench evernote sourcetree sublime-text atom iterm2 intellij-idea)
+storage=(google-drive dropbox copy)
+comm=(skype slack)
+ides=(atom intellij-idea sublime-text)
+tools=(google-chrome istat-menus 1password sourcetree iterm2)
+goodies=(spotify reggy caffeine firefox mysqlworkbench evernote)
+apps=("${storage[@]}" "${comm[@]}" "${ides[@]}" "${tools[@]}" "${goodies[@]}")
 for app in "${apps[@]}"; do
   brew cask install $app >/dev/null
 done
@@ -97,6 +110,9 @@ ln -s ~/dotfiles/git/config ~/.gitconfig
 ln -s ~/dotfiles/git/global_ingore ~/.gitignore_global
 
 rp "installing newer git version" brew install git
+
+# shell utitlies
+brew install parallel
 
 # zsh
 # =========================

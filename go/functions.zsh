@@ -1,11 +1,3 @@
-go_sanity() {
-  find . -path ./Godeps -prune -o -name '*.go' -exec gofmt -l -s {} + # make sure code is properly formatted and simplified
-  test -z "$(find . -path ./Godeps -prune -o -name '*.go' -exec golint {} + | tee /dev/stderr)" # enforce styling
-  go vet ./... # check for possible uh ohs
-  find . -path ./Godeps -prune -o -name '*.go' -exec gocyclo -over 10 {} + # check code complexity. 1 is the base complexity of a function +1 for each 'if', 'for', 'case', '&&' or '||'
-  godep go test -v -race # run tests checking for race conditions
-}
-
 go_cleanup() {
   gofmt -s -w .
 
@@ -16,6 +8,27 @@ go_cleanup() {
       echo -e "${yellow}resetting godeps to HEAD"
       git checkout HEAD -- Godeps
   fi
+}
+
+godep_audit() {
+  function foo() {
+    echo "Auditing $1"
+
+    curdir=$(pwd)
+    cd $GOPATH/src/$1
+    echo "Pulling master of $(pwd)"
+    git checkout master > /dev/null 2>&1
+    git pull > /dev/null 2>&1
+    cd $curdir
+
+    godep update $1/...
+    godep go build
+    godep go test ./...
+    git add Godeps/*
+    git commit -m "updating $1"
+  }
+
+  cat Godeps/Godeps.json | jq -r '.Deps[].ImportPath' | cut -d '/' -f 1-3 | sort -u | xargs -n1 foo
 }
 
 godep_update() {

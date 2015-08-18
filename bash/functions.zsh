@@ -15,4 +15,4 @@ runAgainst() {
   done
 }
 
-ulimit -S -n 2048
+ulimit -S -n 4096
