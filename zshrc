@@ -9,9 +9,9 @@ HISTFILE=~/.zsh_history
 HISTSIZE=4096
 SAVEHIST=4096
 
-# Autoload zsh functions.
-fpath=(~/dotfiles/zsh/functions $fpath)
-autoload -U ~/dotfiles/zsh/functions/*(:t)
+# Autoload git functions
+fpath=(~/dotfiles/git/functions $fpath)
+autoload -U ~/dotfiles/git/functions/*(:t)
 
 # Enable auto-execution of functions.
 typeset -ga preexec_functions
