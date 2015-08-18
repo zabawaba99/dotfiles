@@ -22,61 +22,61 @@ colors_of_the_rainbow(){
 }
 
 p_red() {
-  echo -e "$red$@$NC\n"
+  echo -e "$red$@$NC"
 }
 
 p_blue() {
-  echo -e "$blue$@$NC\n"
+  echo -e "$blue$@$NC"
 }
 
 p_green() {
-  echo -e "$green$@$NC\n"
+  echo -e "$green$@$NC"
 }
 
 p_cyan() {
-  echo -e "$cyan$@$NC\n"
+  echo -e "$cyan$@$NC"
 }
 
 p_orange() {
-  echo -e "$orange$@$NC\n"
+  echo -e "$orange$@$NC"
 }
 
 p_light_grey() {
-  echo -e "$light_grey$@$NC\n"
+  echo -e "$light_grey$@$NC"
 }
 
 p_dark_gray() {
-  echo -e "$dark_gray$@$NC\n"
+  echo -e "$dark_gray$@$NC"
 }
 
 p_light_blue() {
-  echo -e "$light_blue$@$NC\n"
+  echo -e "$light_blue$@$NC"
 }
 
 p_light_blue() {
-  echo -e "$light_blue$@$NC\n"
+  echo -e "$light_blue$@$NC"
 }
 
 p_light_green() {
-  echo -e "$light_green$@$NC\n"
+  echo -e "$light_green$@$NC"
 }
 
 p_light_cyan() {
-  echo -e "$light_cyan$@$NC\n"
+  echo -e "$light_cyan$@$NC"
 }
 
 p_light_red() {
-  echo -e "$light_red$@$NC\n"
+  echo -e "$light_red$@$NC"
 }
 
 p_light_purple() {
-  echo -e "$light_purple$@$NC\n"
+  echo -e "$light_purple$@$NC"
 }
 
 p_yellow() {
-  echo -e "$yellow$@$NC\n"
+  echo -e "$yellow$@$NC"
 }
 
 p_white() {
-  echo -e "$white$@$NC\n"
+  echo -e "$white$@$NC"
 }

@@ -1,0 +1,1 @@
+alias gocld="cd ~/go/src/github.com/CitrixConcierge"

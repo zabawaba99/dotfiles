@@ -5,8 +5,6 @@ if [ -e ~/.initialized ]; then
   return 0
 fi
 
-touch ~/.initialized
-
 function rp() {
   prompt=$1
   shift
@@ -112,10 +110,19 @@ ln -s ~/dotfiles/git/global_ingore ~/.gitignore_global
 rp "installing newer git version" brew install git
 
 # shell utitlies
-brew install parallel
+brew install parallel aws-elasticbeanstalk hub jq
+
+# databases
+brew install redis mysql mongodb
 
 # zsh
 # =========================
 
 rp "installing zsh" brew install zsh zsh-completions zsh-history-substring-search zsh-syntax-highlighting
 chsh -s $(which zsh)
+
+# =========================
+# setup rc file
+
+ln -s ~/dotfiles/zshrc ~/.zshrc
+touch ~/.initialized
