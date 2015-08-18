@@ -6,12 +6,12 @@ if [ -e ~/.initialized ]; then
 fi
 
 function rp() {
-  prompt=$1
+  p=$1
   shift
 
-  p_yellow "$prompt"
+  p_yellow "$p"
   eval $@
-  p_green "Finished $prompt"
+  p_green "Finished $p"
 }
 
 
