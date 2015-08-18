@@ -14,11 +14,9 @@ bye_bye_dangling(){
   docker images -q --filter "dangling=true" | xargs -n1 docker rmi -f
 }
 
-# TODO: inspect status
-# if [ "$(boot2docker status)" != "running" ]; then
-#   docker_up
-# fi
-docker_up
+if [ "$(docker-machine status dev)" != "Running" ]; then
+  docker_up
+fi
 
 if [ -z "$DOCKER_HOST" ]; then
   export DOCKER_IP=$(docker-machine ip dev)
