@@ -31,6 +31,29 @@ chpwd() {
 }
 # ----------------------------------------------
 
+# ----------------------------------------------
+# hombrew zsh
+
+# completions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+zstyle ':completion:::git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
+fpath=(/usr/local/share/zsh/site-functions $fpath)
+
+# online help
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
+
+#syntax highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+
+autoload -U compinit && compinit
+zmodload -i zsh/complist
+
+# ----------------------------------------------
+
 export EDITOR='vim'
 
 # load all dotfiles

@@ -1,99 +1,93 @@
 #!/bin/bash
 
+source bash/colors.zsh
+
 if [ -e ~/.initialized ]; then
   # we have already initialized this machine, do nothing
   return 0
 fi
 
-function rp() {
-  p=$1
-  shift
-
-  p_yellow "$p"
-  eval $@
-  p_green "Finished $p"
-}
-
-
 if ! command -v brew >/dev/null; then
   p_white "Starting homebrew installation"
 
-  # prereq 'xcode-select'
-  rp "installing xcode-select..."  xcode-select --install
-
-  rp "installing hombrew..." ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  xcode-select --install
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # mac app installer
-rp "installing caskroom" brew install caskroom/cask/brew-cask
+p_white "Getting the tap ready"
+brew update
+brew install caskroom/cask/brew-cask
 
 # ruby
 # =========================
 p_white "Starting ruby installation"
 
-rp "installing rbenv" brew install rbenv
-rp "installing ruby 2.2.2" rbenv install 2.2.2
+brew install rbenv ruby-build
+rbenv install 2.2.2
 rbenv global 2.2.2
 rbenv rehash
 
-rp "installing some gems"
+p_blue "installing some gems"
 gems=(bundler pry awesome_print)
 for gem in "${gems[@]}"; do
   gem install $gem >/dev/null
 done
-
 mkdir ~/ruby
+p_green "Ruby install complete"
 
 # go
 # =========================
 p_white "Starting go installation"
-rp "installing go" brew install go --with-cc-all
+brew install go --with-cc-all
 mkdir ~/go
-
+p_green "Go install complete"
 
 # docker
 # =========================
 p_white "Starting docker installation"
 
-rp "installing virtualbox" brew cask install dockertoolbox
-rp "setting up docker vm" docker-machine create --virtualbox-disk-size "40000" -d virtualbox dev
+brew cask install dockertoolbox
+docker-machine create --virtualbox-disk-size "40000" -d virtualbox dev
+p_green "Docker install complete"
 
 # npm
 # =========================
 p_white "Starting node installation"
-rp "installing node" brew install npm
+brew install npm
 npm install -g grunt
+p_green "Node install complete"
 
 # java
 # =========================
 p_white "Starting java installation"
 # java version management
-rp "installing jenv" brew install jenv
+brew install jenv
 
-rp "installing java6" brew cask install caskroom/versions/java6
-rp "installing java7" brew cask install caskroom/versions/java7
-rp "installing java8" brew cask install java
+brew cask install caskroom/versions/java6 caskroom/versions/java7 java
 
 p_yellow "linking java version"
-java_path="/Library/Java/JavaVirtualMachines"
-ls $java_path | xargs -n1 jenv add $java_path/$1/Contents/Home
+javas=(/Library/Java/JavaVirtualMachines/*)
+for j in "${javas[@]}"; do
+  jenv add $j/Contents/Home
+done
 
-rp "installing maven" brew install maven
-rp "installing gradle" brew install gradle
-
+brew install maven gradle
 mkdir ~/java
+p_green "Java install complete"
 
 # android
 # ========================
 p_white "Starting android installation"
-rp "install android tools" brew android-sdk
+brew install android-sdk
 
 packages=$(android list sdk | grep "Packages available for installation or update" | awk '{print $NF}')
 android update sdk -u -a -t $(seq -s, -t$'\b' 1 $packages)
-
+p_green "Android install complete"
 
 # mac apps
 # =========================
+p_white "Installing all the goodies"
 storage=(google-drive dropbox copy)
 comm=(skype slack)
 ides=(atom intellij-idea sublime-text)
@@ -103,24 +97,28 @@ apps=("${storage[@]}" "${comm[@]}" "${ides[@]}" "${tools[@]}" "${goodies[@]}")
 for app in "${apps[@]}"; do
   brew cask install $app >/dev/null
 done
+p_green "Mac apps install complete"
 
 # git setup
+p_white "Setting git up"
 ln -s ~/dotfiles/git/config ~/.gitconfig
 ln -s ~/dotfiles/git/global_ingore ~/.gitignore_global
 
-rp "installing newer git version" brew install git
+brew install git
+p_green "Git setup"
 
-# shell utitlies
-brew install parallel aws-elasticbeanstalk hub jq
-
-# databases
-brew install redis mysql mongodb
+p_white "Installing some last minute apps"
+brew install parallel aws-elasticbeanstalk hub jq redis mysql mongodb
+p_green ":+1:"
 
 # zsh
 # =========================
 
-rp "installing zsh" brew install zsh zsh-completions zsh-history-substring-search zsh-syntax-highlighting
-chsh -s $(which zsh)
+p_white "Installing zsh"
+brew install zsh zsh-completions zsh-syntax-highlighting
+
+p_cyan "You need to add /usr/local/bin/zsh to /etc/shells."
+p_cyan "Afterward run 'chsh -s $(which zsh)''"
 
 # =========================
 # setup rc file
