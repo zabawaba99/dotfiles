@@ -72,7 +72,9 @@ for j in "${javas[@]}"; do
   jenv add $j/Contents/Home
 done
 
-brew install maven gradle
+jenv global 1.7
+
+brew install maven gradle homebrew/binary/jad
 mkdir ~/java
 p_green "Java install complete"
 
@@ -83,6 +85,8 @@ brew install android-sdk
 
 packages=$(android list sdk | grep "Packages available for installation or update" | awk '{print $NF}')
 android update sdk -u -a -t $(seq -s, -t$'\b' 1 $packages)
+
+brew install apktool dex2jar
 p_green "Android install complete"
 
 # mac apps
@@ -95,7 +99,7 @@ tools=(google-chrome istat-menus 1password sourcetree iterm2)
 goodies=(spotify reggy caffeine firefox mysqlworkbench evernote)
 apps=("${storage[@]}" "${comm[@]}" "${ides[@]}" "${tools[@]}" "${goodies[@]}")
 for app in "${apps[@]}"; do
-  brew cask install $app >/dev/null
+  brew cask install --appdir=/Applications $app >/dev/null
 done
 p_green "Mac apps install complete"
 
