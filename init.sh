@@ -112,7 +112,7 @@ brew install git
 p_green "Git setup"
 
 p_white "Installing some last minute apps"
-brew install parallel aws-elasticbeanstalk hub jq redis mysql mongodb
+brew install parallel awscli aws-elasticbeanstalk hub jq redis mysql mongodb
 p_green ":+1:"
 
 # zsh
