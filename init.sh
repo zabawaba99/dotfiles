@@ -24,6 +24,7 @@ brew install caskroom/cask/brew-cask
 p_white "Starting ruby installation"
 
 brew install rbenv ruby-build
+eval "$(rbenv init -)"
 rbenv install 2.2.2
 rbenv global 2.2.2
 rbenv rehash
