@@ -40,7 +40,7 @@ p_green "Ruby install complete"
 # go
 # =========================
 p_white "Starting go installation"
-brew install go --with-cc-all
+brew install go
 mkdir ~/go
 p_green "Go install complete"
 
