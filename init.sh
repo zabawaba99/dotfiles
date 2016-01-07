@@ -65,7 +65,7 @@ p_white "Starting java installation"
 # java version management
 brew install jenv
 
-brew cask install caskroom/versions/java6 caskroom/versions/java7 java
+brew cask install caskroom/versions/java7 java
 
 p_yellow "linking java version"
 javas=(/Library/Java/JavaVirtualMachines/*)
@@ -73,7 +73,7 @@ for j in "${javas[@]}"; do
   jenv add $j/Contents/Home
 done
 
-jenv global 1.7
+jenv global 1.8
 
 brew install maven gradle homebrew/binary/jad
 mkdir ~/java
@@ -123,7 +123,7 @@ p_white "Installing zsh"
 brew install zsh zsh-completions zsh-syntax-highlighting
 
 p_cyan "You need to add /usr/local/bin/zsh to /etc/shells."
-p_cyan "Afterward run 'chsh -s $(which zsh)''"
+p_cyan "Afterward run 'chsh -s $(which zsh)'"
 
 # =========================
 # setup rc file
