@@ -56,7 +56,10 @@ p_green "Docker install complete"
 # =========================
 p_white "Starting node installation"
 brew install npm
-npm install -g grunt
+pkgs=(grunt bower mean-cli)
+for pkg in "${pkgs[@]}"; do
+  npm install -g $pkg
+done
 p_green "Node install complete"
 
 # java
