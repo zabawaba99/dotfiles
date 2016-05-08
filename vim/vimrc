@@ -1,0 +1,90 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+
+Plugin 'fatih/vim-go'
+Plugin 'Shougo/neocomplete.vim' " auto complete for vim-go
+Plugin 'scrooloose/nerdtree'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+"------------------------------------------------------------------------------
+" Colors and Fonts
+"------------------------------------------------------------------------------
+" Enable syntax highlighting
+syntax enable
+
+try
+    colorscheme desert
+catch
+endtry
+
+set background=dark
+
+
+"------------------------------------------------------------------------------
+" NerdTree
+"------------------------------------------------------------------------------
+
+" Open Nerdtree if no file is selected
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+
+"------------------------------------------------------------------------------
+" VimGo
+"------------------------------------------------------------------------------
+
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "gofmt -s" "Explicited the formater plugin (gofmt, goimports, goreturn...)
+
+" Show a list of interfaces which is implemented by the type under your cursor
+au FileType go nmap <Leader>s <Plug>(go-implements)
+
+" Show type info for the word under your cursor
+au FileType go nmap <Leader>i <Plug>(go-info)
+
+" Open the relevant Godoc for the word under the cursor
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+" Open the Godoc in browser
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+
+" Run/build/test/coverage
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+
+" By default syntax-highlighting for Functions, Methods and Structs is disabled.
+" Let's enable them!
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+"------------------------------------------------------------------------------
+" NeoComplete
+"------------------------------------------------------------------------------
+let g:neocomplete#enable_at_startup = 1
+
+"------------------------------------------------------------------------------
+" Spell checking
+"------------------------------------------------------------------------------
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
