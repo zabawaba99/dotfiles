@@ -93,6 +93,12 @@ android update sdk -u -a -t $(seq -s, -t$'\b' 1 $packages)
 brew install apktool dex2jar
 p_green "Android install complete"
 
+# aws
+# =========================
+p_white "Starting aws installation"
+brew install awscli
+p_green "aws install complete"
+
 # mac apps
 # =========================
 p_white "Installing all the goodies"
@@ -118,6 +124,13 @@ p_green "Git setup"
 p_white "Installing some last minute apps"
 brew install snag parallel awscli aws-elasticbeanstalk hub jq redis mysql mongodb
 p_green ":+1:"
+
+# vim setup
+p_white "Vim setup"
+ln -sf "~/dotfiles/vim/vimrc" "~/.vimrc"
+ln -sfh "~/dotfiles/vim" "~/.vim"
+
+p_green "Now go get all matrix-y"
 
 # zsh
 # =========================
