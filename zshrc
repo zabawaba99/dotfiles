@@ -40,8 +40,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 zstyle ':completion:::git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
-source /usr/local/share/zsh/site-functions/_aws
-
 # online help
 unalias run-help
 autoload run-help

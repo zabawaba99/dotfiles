@@ -1,2 +1,5 @@
 # auto complete
-source /usr/local/share/zsh/site-functions/_aws
+
+if [[ -a "/usr/local/share/zsh/site-functions/_aws" ]]; then
+  source /usr/local/share/zsh/site-functions/_aws
+fi
