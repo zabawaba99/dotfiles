@@ -15,6 +15,10 @@ set number
 
 set backspace=2 " make backspace work like most other apps
 
+" Remove trailing white spaces from certain languages
+autocmd FileType go,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+
 "------------------------------------------------------------------------------
 " Colors and Fonts
 "------------------------------------------------------------------------------
