@@ -1,13 +1,14 @@
 [user]
   name = Steven Berlanga
   email = zabawaba99@gmail.com
+  signingkey = A20A6568
 [credential]
   helper = osxkeychain
 [push]
   default = simple
 [core]
   editor = subl -n -w
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
 [mergetool "sublime"]
   cmd = subl -w $MERGED
   trustExitCode = false
@@ -19,10 +20,7 @@
   smudge = git media smudge %f
 [alias]
   workprofile = config user.email \"steven@cloud.com\"
-	wreckit = "!sh -c 'git branch --merged | grep  -v \"\\*\\|master\" | xargs -n1 git branch -d'"
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  wreckit = "!sh -c 'git branch --merged | grep  -v \"\\*\\|master\" | xargs -n1 git branch -d'"
 [mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
