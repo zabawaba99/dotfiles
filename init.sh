@@ -48,8 +48,8 @@ p_green "Go install complete"
 # =========================
 p_white "Starting docker installation"
 
-brew cask install dockertoolbox
-docker-machine create --virtualbox-disk-size "40000" -d virtualbox dev
+brew cask install docker
+brew install docker docker-compose
 p_green "Docker install complete"
 
 # npm
