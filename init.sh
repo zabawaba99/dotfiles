@@ -116,7 +116,7 @@ p_green "Mac apps install complete"
 # git setup
 p_white "Setting git up"
 ln -s ~/dotfiles/git/config ~/.gitconfig
-ln -s ~/dotfiles/git/global_ingore ~/.gitignore_global
+ln -s ~/dotfiles/git/global_ignore ~/.gitignore_global
 
 brew install git
 p_green "Git setup"
