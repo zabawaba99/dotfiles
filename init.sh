@@ -105,7 +105,7 @@ p_white "Installing all the goodies"
 storage=(google-drive dropbox copy)
 comm=(skype slack)
 ides=(atom intellij-idea-ce sublime-text)
-tools=(google-chrome istat-menus 1password sourcetree iterm2)
+tools=(thefuck google-chrome istat-menus 1password sourcetree iterm2)
 goodies=(spotify reggy caffeine firefox mysqlworkbench evernote)
 apps=("${storage[@]}" "${comm[@]}" "${ides[@]}" "${tools[@]}" "${goodies[@]}")
 for app in "${apps[@]}"; do
