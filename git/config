@@ -1,26 +1,18 @@
 [user]
   name = Steven Berlanga
   email = zabawaba99@gmail.com
-  signingkey = A20A6568
 [credential]
   helper = osxkeychain
 [push]
   default = simple
 [core]
-  editor = subl -n -w
+  editor = code --wait
   excludesfile = ~/.gitignore_global
-[mergetool "sublime"]
-  cmd = subl -w $MERGED
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
   trustExitCode = false
-[mergetool]
-  keepBackup = true
-[filter "media"]
-  required = true
-  clean = git media clean %f
-  smudge = git media smudge %f
 [alias]
-  workprofile = config user.email \"steven@cloud.com\"
   wreckit = "!sh -c 'git branch --merged | grep  -v \"\\*\\|master\" | xargs -n1 git branch -d'"
-[mergetool "sourcetree"]
-  cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig-work
+
