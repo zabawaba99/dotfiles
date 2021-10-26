@@ -54,10 +54,6 @@ zmodload -i zsh/complist
 
 # ----------------------------------------------
 
-eval $(thefuck --alias)
-
-export EDITOR='vim'
-
 # load all dotfiles
 for file in ~/dotfiles/**/**.zsh; do
   source $file
