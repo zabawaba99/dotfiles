@@ -58,3 +58,5 @@ zmodload -i zsh/complist
 for file in ~/dotfiles/**/**.zsh; do
   source $file
 done
+
+source ~/.zshrc_work
